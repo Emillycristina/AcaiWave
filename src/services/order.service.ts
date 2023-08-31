@@ -12,12 +12,9 @@ export class OrderService {
     private readonly ordersRepository: Repository<Order>,
   ) {}
 
-  async create({ number_order, options, status, customer_id }: CreateOrderDto) {
+  async create({ options, status, customer_id }: CreateOrderDto) {
     const data: any = {};
-
-    if (number_order) {
-      data.number_order = Math.floor(Math.random() * 1000 + 1);
-    }
+    data.number_order = Math.floor(Math.random() * 1000 + 1);
 
     if (options) {
       data.options = Array(options);
