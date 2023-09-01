@@ -20,6 +20,9 @@ export class Order {
   number_order?: number;
 
   @Column({ type: 'json' })
+  size_order?: any;
+
+  @Column({ type: 'json' })
   options?: any;
 
   @Column({ nullable: true })

@@ -12,22 +12,29 @@ export class OrderService {
     private readonly ordersRepository: Repository<Order>,
   ) {}
 
-  async create({ options, status, customer_id }: CreateOrderDto) {
-    const data: any = {};
-    data.number_order = Math.floor(Math.random() * 1000 + 1);
+  async create({ size_order, options, status, customer_id }: CreateOrderDto) {
+    try {
+      const data: any = {};
+      data.number_order = Math.floor(Math.random() * 1000 + 1);
 
-    if (options) {
-      data.options = Array(options);
-    }
-    if (status) {
-      data.status = status;
-    }
-    if (customer_id) {
-      data.customer_id = Number(customer_id);
-    }
+      if (options) {
+        data.options = Array(options);
+      }
+      if (size_order) {
+        data.size_order = Array(size_order);
+      }
+      if (status) {
+        data.status = status;
+      }
+      if (customer_id) {
+        data.customer_id = Number(customer_id);
+      }
 
-    await this.ordersRepository.save(data);
-    return data;
+      await this.ordersRepository.save(data);
+      return data;
+    } catch (error) {
+      return error.detail;
+    }
   }
 
   async findAll() {
@@ -43,13 +50,16 @@ export class OrderService {
     });
   }
 
-  async update(id: number, { options, status }: UpdateOrderDto) {
+  async update(id: number, { size_order, options, status }: UpdateOrderDto) {
     await this.exists(id);
 
     const data: any = {};
 
     if (options) {
       data.options = Array(options);
+    }
+    if (size_order) {
+      data.size_order = Array(size_order);
     }
     if (status) {
       data.status = status;
